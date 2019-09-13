@@ -1,0 +1,13 @@
+<label  class="input"
+        [ngClass]="{
+          'input--valid': ngControl?.control?.valid && ngControl?.value,
+          'input--invalid': !ngControl?.control?.valid && ngControl?.control?.touched
+        }">
+  <input  class="input-text"
+          [type]="type"
+          [value]="value"
+          [placeholder]="placeholder"
+          [disabled]="disabled"
+          (blur)="onTouchedInput()"
+          (input)="onChangeValue($event)">
+</label>

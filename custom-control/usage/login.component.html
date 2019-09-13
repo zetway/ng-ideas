@@ -1,0 +1,37 @@
+<app-modal-container (close)="modal.closeModal()">
+  <div title>
+    {{ 'login.title' | translate }}
+  </div>
+  <div subTitle>
+    <p class="modal-window__head-text">
+      {{ 'login.noAccount' | translate }}&nbsp;
+      <a class="modal-window-link" [routerLink]="['../', 'registration']" >
+        {{ 'login.register' | translate }}
+      </a>
+    </p>
+  </div>
+  <div body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="def-form">
+        <div class="def-form__row">
+          <app-custom-control
+            formControlName="email" placeholder="email">
+          </app-custom-control>
+          <div class="val-msg" *ngIf="form.get('email').touched && form.get('email').hasError('email')">
+            {{ 'validationErrors.email' | translate }}
+          </div>
+          <div class="val-msg" *ngIf="!!serverValidationErrors?.email">{{serverValidationErrors?.email}}</div>
+        </div>
+        <div class="def-form__row">
+          <app-custom-control
+            formControlName="password" type="password" [placeholder]="'login.password' | translate">
+          </app-custom-control>
+          <div class="val-msg" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">
+            {{ 'validationErrors.password' | translate }}
+          </div>
+          <div class="val-msg" *ngIf="!!serverValidationErrors?.password">{{serverValidationErrors?.password}}</div>
+          <div class="text-right"><a class="def-form__link" [routerLink]="['../', 'restore-password']">{{ 'login.restorePassword' | translate }}</a></div>
+        </div>
+        <button [disabled]="form.invalid" class="main-btn" type="submit">{{ 'login.login' | translate }}</button>
+      </form>
+  </div>
+</app-modal-container>
